@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aarhus universitets ladestander</title>
+</head>
+<body>
+
+<style> 
+
+body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            font-family: 'Aptos', sans-serif;
+        }
+
+h1, p, label, input, button {
+            font-weight: normal; 
+        }
+
+        .banner {
+            background-color: #007BFF; 
+            color: black; 
+            padding: 10px; 
+            text-align: center; 
+            width: 100%; 
+        }
+        
+        
+        .banner h1 {
+            margin: 0; 
+        }
+
+</style>    
+    
+<img src="Aarhus_University.png" style="width: 10%; height: auto; position: absolute; top: 0; left: 0;">
+
+    
+    <br>
+
+    <h1 class="text-center"> Velkommen til Aarhus universitets nye ladestander! </a>
+    <br>
+    <br>
+    <a> Indtast dine oplysninger for at starte: </a>
+    <br>
+    <br>
+    <label for="name"> Navn: </label>
+    <input type="text" id="name">
+    <br>
+    <br>
+    <label for="address"> Adresse: </label>
+    <input type="text" id="address">
+    <br>
+    <br>
+    <button id="submitBtn">Videre</button>
+
+    <script>
+        function storeInputValues(event) {
+            event.preventDefault(); 
+
+            var nameInput = document.getElementById('name').value;
+            var addressInput = document.getElementById('address').value;
+
+            var name = nameInput;
+            var address = addressInput;
+
+            console.log("Navn: " + name);
+            console.log("Adresse: " + address);
+
+            localStorage.setItem('name', name);
+            localStorage.setItem('address', address);
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude
+                    localStorage.setItem('latitude', latitude);
+                    localStorage.setItem('longitude', longitude);
+                    console.log("Latitude: " + latitude);
+                    console.log("Longitude: " + longitude);
+
+                    window.location.href = 'side2.html';
+                });
+            } else {
+                console.log("Geolocation is not supported by this browser.");
+                window.location.href = 'side2.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('submitBtn').addEventListener('click', storeInputValues);
+        });
+    </script>
+</body>
+</html>
